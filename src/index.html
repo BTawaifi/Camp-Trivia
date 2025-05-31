@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(By Boutros Tawaifi) لعبة المناظرة</title>
+    <!-- Link to CSS. Assuming style.css is in the project root, -->
+    <!-- this path is relative from dist/index.html back to the root -->
+    <link rel="stylesheet" href="../style.css">
+
+    <!-- NO importmap needed -->
+    <!-- NO script type=module needed - HtmlWebpackPlugin injects bundle.js -->
+</head>
+<!-- Body tag is important for theme class -->
+<body>
+    <!-- Canvas Container for Three.js -->
+    <div id="canvas-container" style="background-color: var(--bg-body);">
+        <!-- Canvas will be appended here by scene modules -->
+        <!-- Background color ensures it matches theme when no scene is active -->
+    </div>
+
+    <!-- UI Container -->
+    <div id="ui-container">
+        <!-- Loading Text -->
+        <div id="loading-text" class="ui-element" data-phase="loading">جارٍ تحميل اللعبة...</div>
+
+        <!-- Game Setup Screen -->
+        <div id="start-config" class="ui-element" data-phase="setup">
+            <h2>إعدادات اللعبة</h2>
+
+            <!-- Theme Selector -->
+            <div id="theme-selector-container" style="margin-bottom: 15px; border: 1px solid var(--panel-border); border-radius: 5px; padding: 10px;">
+                <label for="theme-selector" style="display: block; margin-bottom: 5px;">اختر السمة:</label>
+                <select id="theme-selector" name="theme" style="padding: 8px; border-radius: 4px; border: 1px solid var(--input-border); background-color: var(--input-bg); color: var(--input-text); width: 100%; max-width: 250px; font-family: 'Noto Sans Arabic', Arial, sans-serif;">
+                    <option value="campfire" selected>نار المخيم (دافئ)</option>
+                    <option value="mono-dark">داكن أحادي اللون</option>
+                    <option value="forest">الغابة (بارد)</option>
+                </select>
+            </div>
+
+            <!-- Scene Selector -->
+            <div id="scene-selector-container" style="margin-bottom: 20px; border: 1px solid var(--panel-border); border-radius: 5px; padding: 10px;">
+			 <label for="scene-selector" style="display: block; margin-bottom: 5px;">اختر المشهد:</label>
+			 <select id="scene-selector" name="scene" style="padding: 8px; border-radius: 4px; border: 1px solid var(--input-border); background-color: var(--input-bg); color: var(--input-text); width: 100%; max-width: 250px; font-family: 'Noto Sans Arabic', Arial, sans-serif;">
+				 <option value="none">بدون مشهد (أداء أفضل)</option>
+				 <option value="campfire" selected>نار المخيم</option>
+				 <option value="starryNight">ليلة مرصعة بالنجوم</option>
+				 <option value="forest">غابة</option>
+				 <option value="abstract">أشكال مجردة</option>
+				 <option value="desert">واحة الصحراء</option>
+				 <option value="eden">جنة عدن</option>
+				 <option value="sinai">جبل سيناء</option>
+				 <option value="galilee">بحر الجليل</option>
+				 <option value="wilderness">البرية</option>
+				 <option value="bush">العليقة المشتعلة</option>
+			 </select>
+			</div>
+            <!-- End Scene Selector -->
+
+            <!-- Question Type Selector -->
+            <div id="question-type-selector">
+                 <label>نوع الأسئلة:</label>
+                 <input type="radio" id="type-mixed" name="question_type" value="mixed" checked> <label for="type-mixed">مختلطة</label>
+                 <input type="radio" id="type-biblical" name="question_type" value="biblical"> <label for="type-biblical">كتابية فقط</label>
+                 <input type="radio" id="type-normal" name="question_type" value="normal"> <label for="type-normal">عادية فقط</label>
+            </div>
+
+            <!-- File Importer and Question Editor Controls -->
+             <div id="question-management" style="margin-bottom: 20px; border: 1px solid var(--panel-border); border-radius: 5px; padding: 15px;">
+                <h4>إدارة الأسئلة</h4>
+                <!-- File Importer -->
+                <div id="file-importer" style="border: none; padding: 0; margin-bottom: 15px;">
+                    <label for="file-input">استيراد أسئلة من JSON:</label>
+                    <input type="file" id="file-input" accept=".json" multiple>
+                    <div>
+                        <input type="checkbox" id="import-replace-checkbox"> <label for="import-replace-checkbox">استبدال الأسئلة الحالية بالمستوردة عند بدء اللعبة</label>
+                    </div>
+                    <button id="import-button">استيراد الملفات</button>
+                    <span id="import-status"></span>
+                </div>
+                 <!-- Question Editor Buttons -->
+                 <div id="editor-controls" style="margin-top: 15px; border-top: 1px dashed var(--panel-border); padding-top: 15px; display: flex; justify-content: space-around; gap: 10px;">
+                     <!-- ** UPDATED BUTTON ID AND TEXT ** -->
+                    <button id="open-ui-editor-button" class="secondary-action">تعديل الأسئلة (واجهة رسومية)</button>
+                    <button id="reset-questions-button" class="warning-action">إعادة تعيين الأسئلة للافتراضي</button>
+                </div>
+             </div>
+
+
+            <!-- Team Setup -->
+            <label for="num-teams">عدد الفرق:</label>
+            <input type="number" id="num-teams" name="num-teams" min="1" max="10" value="2">
+            <div id="team-names-container"></div>
+
+            <!-- Question Count Setup -->
+            <label for="num-questions">عدد الأسئلة المطلوبة:</label>
+            <input type="number" id="num-questions" name="num-questions" min="1" value="5">
+            <span id="available-questions-count">(?)</span>
+
+            <!-- Start Error Display -->
+            <div id="start-error"></div>
+
+            <!-- Start Button -->
+            <button id="start-button">ابدأ اللعبة</button>
+        </div>
+
+        <!-- ** NEW Question Editor UI (Replaces #json-editor) ** -->
+        <div id="question-editor-ui" class="ui-element" style="display: none; width: 90%; max-width: 900px; max-height: 90vh; overflow-y: hidden;">
+            <h2>محرر الأسئلة</h2>
+            <div id="editor-status-message" class="status-message" style="text-align: center; margin-bottom: 10px; min-height: 1.2em;"></div>
+
+            <!-- View Container: Switches between List and Form -->
+            <div id="editor-view-container" style="height: calc(100% - 120px); overflow-y: auto; padding: 10px; border: 1px solid var(--input-border); background-color: rgba(0,0,0,0.1); border-radius: 5px; margin-bottom: 15px;">
+
+                <!-- Question List View -->
+                <div id="question-list-view">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                         <h3 style="margin: 0; color: var(--text-heading);">قائمة الأسئلة (<span id="editor-question-count">0</span>)</h3>
+                         <button id="add-new-question-button">إضافة سؤال جديد</button>
+                    </div>
+                    <ul id="question-list-container" style="list-style: none; padding: 0; margin: 0;">
+                        <!-- Question items will be populated here by JS -->
+                    </ul>
+                </div>
+
+                <!-- Question Edit Form View (Hidden initially) -->
+                <div id="question-edit-form-view" style="display: none;">
+                    <h3 id="edit-form-title" style="color: var(--text-heading); text-align: center; margin-bottom: 15px;">إضافة/تعديل سؤال</h3>
+                    <form id="question-edit-form">
+                        <input type="hidden" id="edit-q-id">
+
+                        <label for="edit-q-text">نص السؤال:</label>
+                        <textarea id="edit-q-text" required rows="3"></textarea>
+
+                        <label>الخيارات (حدد الصحيح):</label>
+                        <div id="edit-q-choices-container">
+                            <!-- Choice inputs will be populated here by JS -->
+                        </div>
+                        <button type="button" id="add-choice-button" style="margin-top: 5px;" class="secondary-action">إضافة خيار</button>
+
+                        <label for="edit-q-verse">الشاهد الكتابي (اختياري):</label>
+                        <input type="text" id="edit-q-verse">
+
+                        <label for="edit-q-type">نوع السؤال:</label>
+                        <select id="edit-q-type">
+                            <option value="biblical">ديني</option>
+                            <option value="normal">عادي</option>
+                        </select>
+
+                        <div class="form-actions" style="margin-top: 20px; display: flex; justify-content: space-around;">
+                            <button type="submit" id="save-edited-question-button">حفظ السؤال</button>
+                            <button type="button" id="cancel-edit-question-button" class="cancel-action">إلغاء</button>
+                        </div>
+                    </form>
+                </div>
+            </div> <!-- End Editor View Container -->
+
+            <!-- Global Editor Actions -->
+             <div class="editor-global-actions" style="padding-top: 10px; border-top: 1px solid var(--panel-border); display: flex; justify-content: space-between;">
+				 <button id="delete-all-questions-button" class="warning-action">حذف جميع الأسئلة</button>
+                 <button id="export-questions-button-ui" class="secondary-action">تصدير الأسئلة الحالية (JSON)</button>
+                 <button id="close-ui-editor-button" class="cancel-action">إغلاق المحرر</button>
+            </div>
+
+        </div> <!-- End #question-editor-ui -->
+
+
+        <!-- Main Question Display -->
+        <div id="question-container" class="ui-element" data-phase="presenting,scoring">
+            <div id="question-counter">السؤال ؟/؟</div>
+            <div id="question-text">نص السؤال سيظهر هنا...</div>
+            <div id="discussion-prompt">ناقش مع فريقك قبل التصويت!</div>
+            <div id="choices-container"></div>
+            <div id="verse-display" style="display: none;">
+                <span id="verse-toggle">إظهار الشاهد</span>
+                <div id="verse-content">الشاهد الكتابي سيظهر هنا...</div>
+            </div>
+            <button id="skip-button" style="display: none; margin-top: 15px; align-self: center;">تخطي السؤال</button>
+        </div>
+
+        <!-- Result Display -->
+        <div id="result-container" class="ui-element" data-phase="scoring">
+            <div id="result-text">النتيجة ستظهر هنا...</div>
+            <div id="point-award-container"></div>
+            <button id="next-button" class="disabled">السؤال التالي</button>
+        </div>
+
+         <!-- End Game Screen -->
+         <div id="end-game" class="ui-element" data-phase="end">
+            <h2>اكتملت المناظرة!</h2>
+            <div id="end-game-scores"><h4>النتائج النهائية:</h4></div>
+            <div id="end-game-winner">الفائز هو...؟</div>
+            <button id="start-button-restart">العب مرة أخرى</button>
+        </div>
+    </div>
+
+    <!-- Score Display Area (Overlay) -->
+    <div id="score-display">
+         <h4>النتائج</h4>
+         <div id="scores-list"></div>
+    </div>
+
+    <!-- Webpack will inject the <script src="bundle.js"></script> tag here -->
+</body>
+</html>

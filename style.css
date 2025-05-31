@@ -1,0 +1,635 @@
+/* --- FONT DEFINITIONS --- */
+@font-face { /* ... Noto Sans Arabic Regular ... */
+  font-family: 'Noto Sans Arabic'; font-style: normal; font-weight: 400;
+  src: local('Noto Sans Arabic Regular'), local('NotoSansArabic-Regular'), url('./assets/fonts/NotoSansArabic-Regular.ttf') format('truetype'); font-display: swap; }
+@font-face { /* ... Noto Sans Arabic Bold ... */
+  font-family: 'Noto Sans Arabic'; font-style: normal; font-weight: 700;
+  src: local('Noto Sans Arabic Bold'), local('NotoSansArabic-Bold'), url('./assets/fonts/NotoSansArabic-Bold.ttf') format('truetype'); font-display: swap; }
+
+/* --- THEME VARIABLES --- */
+/* Default Theme: Monochrome Dark */
+:root, .theme-mono-dark {
+  --bg-body: #121212;
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --text-heading: #ffffff;
+  --text-button-primary: #121212; /* Dark text on light button */
+  --text-button-secondary: #e0e0e0; /* Light text on dark button */
+
+  --panel-bg: rgba(30, 30, 30, 0.9);
+  --panel-border: rgba(80, 80, 80, 0.6);
+
+  --button-primary-bg: #cccccc; /* Light grey for main actions */
+  --button-primary-border: #a0a0a0;
+  --button-primary-hover-bg: #e0e0e0;
+
+  --button-secondary-bg: #444444; /* Darker grey for secondary */
+  --button-secondary-border: #2a2a2a;
+  --button-secondary-hover-bg: #555555;
+
+  --button-choice-bg: var(--button-secondary-bg);
+  --button-choice-border: var(--button-secondary-border);
+  --button-choice-hover-bg: var(--button-secondary-hover-bg);
+
+  --button-correct-bg: #6f9a6f; /* Muted Green */
+  --button-correct-border: #4f7a4f;
+  --button-correct-hover-bg: #85b085;
+
+  --button-incorrect-bg: #a06a6a; /* Muted Red */
+  --button-incorrect-border: #804a4a;
+  --button-incorrect-hover-bg: #b58080;
+
+  --button-disabled-bg: #505050;
+  --button-disabled-border: #383838;
+  --button-disabled-text: #909090;
+
+  --input-bg: #252525;
+  --input-border: #555555;
+  --input-text: #e0e0e0;
+
+  --accent-color: #bbbbbb; /* Verse toggle, radio/check */
+  --winner-color: #ffffff;
+  --winner-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+
+  --score-panel-bg: rgba(10, 10, 10, 0.9);
+  --score-panel-border: var(--panel-border);
+  --score-heading-color: var(--text-heading);
+}
+
+.theme-campfire {
+  --bg-body: #050508;
+  --text-primary: #e8e8e8;
+  --text-secondary: #a0a0a0;
+  --text-heading: #e0b870; /* Gold */
+  --text-button-primary: #1a1a1a; /* Dark text on gold button */
+  --text-button-secondary: #e8e8e8; /* Light text on dark button */
+
+  --panel-bg: rgba(25, 20, 15, 0.88); /* Dark warm */
+  --panel-border: rgba(100, 80, 60, 0.5);
+
+  --button-primary-bg: #c8a050; /* Gold */
+  --button-primary-border: #a08040;
+  --button-primary-hover-bg: #e0b860;
+
+  --button-secondary-bg: #506078; /* Muted blue-grey */
+  --button-secondary-border: #384454;
+  --button-secondary-hover-bg: #607088;
+
+  --button-choice-bg: var(--button-secondary-bg);
+  --button-choice-border: var(--button-secondary-border);
+  --button-choice-hover-bg: var(--button-secondary-hover-bg);
+
+  --button-correct-bg: #5a8c5a; /* Muted Green */
+  --button-correct-border: #3e623e;
+  --button-correct-hover-bg: #6faa6f;
+
+  --button-incorrect-bg: #a85c5c; /* Muted Red */
+  --button-incorrect-border: #7a4242;
+  --button-incorrect-hover-bg: #c07070;
+
+  --button-disabled-bg: #7a705a; /* Drabber gold/brown for primary disabled */
+  --button-disabled-border: #5c5444;
+  --button-disabled-text: #b0b0b0;
+  /* Note: Choice disabled state keeps color but reduces opacity in rules below */
+
+  --input-bg: #252525;
+  --input-border: #555555;
+  --input-text: #e0e0e0;
+
+  --accent-color: #e0b870; /* Gold */
+  --winner-color: #ffd700; /* Brighter Gold */
+  --winner-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+
+  --score-panel-bg: rgba(15, 10, 5, 0.9);
+  --score-panel-border: rgba(100, 80, 60, 0.6);
+  --score-heading-color: var(--text-heading);
+}
+
+.theme-forest {
+  --bg-body: #081008; /* Very dark green */
+  --text-primary: #d5e0d5;
+  --text-secondary: #95a595;
+  --text-heading: #a0d0a0; /* Light green */
+  --text-button-primary: #081008; /* Dark text on light button */
+  --text-button-secondary: #d5e0d5; /* Light text on dark button */
+
+  --panel-bg: rgba(15, 25, 15, 0.9); /* Dark green panel */
+  --panel-border: rgba(60, 100, 60, 0.5);
+
+  --button-primary-bg: #90b090; /* Light muted green */
+  --button-primary-border: #608060;
+  --button-primary-hover-bg: #a0c0a0;
+
+  --button-secondary-bg: #3a5a3a; /* Dark green */
+  --button-secondary-border: #204020;
+  --button-secondary-hover-bg: #4a6a4a;
+
+  --button-choice-bg: var(--button-secondary-bg);
+  --button-choice-border: var(--button-secondary-border);
+  --button-choice-hover-bg: var(--button-secondary-hover-bg);
+
+  --button-correct-bg: #70a070; /* Slightly brighter green */
+  --button-correct-border: #508050;
+  --button-correct-hover-bg: #80b080;
+
+  --button-incorrect-bg: #a07070; /* Muted Reddish Brown */
+  --button-incorrect-border: #805050;
+  --button-incorrect-hover-bg: #b58585;
+
+  --button-disabled-bg: #607060; /* Muted green-grey */
+  --button-disabled-border: #405040;
+  --button-disabled-text: #a0b0a0;
+
+  --input-bg: #182818;
+  --input-border: #406040;
+  --input-text: #d5e0d5;
+
+  --accent-color: #a0d0a0; /* Light green */
+  --winner-color: #c0f0c0; /* Brightest green */
+  --winner-shadow: 0 0 8px rgba(192, 240, 192, 0.5);
+
+  --score-panel-bg: rgba(5, 15, 5, 0.9);
+  --score-panel-border: var(--panel-border);
+  --score-heading-color: var(--text-heading);
+}
+
+
+/* --- BASE & LAYOUT (Using Variables) --- */
+
+/* --- JSON Editor Styles --- */
+#json-editor {
+    align-self: center;
+}
+
+#json-editor-textarea {
+    width: 100%;
+    min-height: 300px;
+    max-height: 60vh;
+    resize: vertical;
+    font-family: monospace;
+    font-size: 0.9em;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    border: 1px solid var(--input-border);
+    border-radius: 4px;
+    margin-bottom: 10px;
+    transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease;
+}
+
+#json-editor-status {
+    margin-top: 10px;
+    text-align: center;
+    min-height: 1.3em;
+    font-size: 0.9em;
+    color: var(--text-secondary);
+    transition: color 0.5s ease;
+}
+
+#json-editor-controls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Theme variables for editor buttons */
+#open-json-editor-button,
+#reset-questions-button,
+#close-json-button,
+#export-json-button { /* Added export button */
+    background-color: var(--button-secondary-bg);
+    border-bottom: 3px solid var(--button-secondary-border);
+    color: var(--text-button-secondary);
+}
+#open-json-editor-button:not(:disabled):hover,
+#reset-questions-button:not(:disabled):hover,
+#close-json-button:not(:disabled):hover,
+#export-json-button:not(:disabled):hover { /* Added export button */
+    background-color: var(--button-secondary-hover-bg);
+}
+
+#save-json-button {
+    background-color: var(--button-primary-bg);
+    color: var(--text-button-primary);
+    font-weight: bold;
+    border-bottom: 3px solid var(--button-primary-border);
+}
+#save-json-button:not(:disabled):hover {
+    background-color: var(--button-primary-hover-bg);
+}
+
+body {
+    margin: 0; overflow: hidden; font-family: 'Noto Sans Arabic', Arial, sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-primary);
+    direction: rtl; transition: background-color 0.5s ease;
+}
+#canvas-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+canvas { display: block; }
+#ui-container {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; display: flex; flex-direction: column; align-items: center;
+    padding-top: 1.5%; text-align: right; z-index: 1; overflow-y: auto;
+    scrollbar-width: none; -ms-overflow-style: none;
+}
+#ui-container::-webkit-scrollbar { display: none; }
+
+/* --- GENERAL UI PANEL (Using Variables) --- */
+.ui-element {
+    background-color: var(--panel-bg);
+    padding: 20px 30px; border-radius: 8px; margin-bottom: 15px;
+    max-width: 80%; width: fit-content; min-width: 300px; pointer-events: auto;
+    opacity: 0; display: none; transition: opacity 0.6s ease-out, background-color 0.5s ease, border-color 0.5s ease;
+    flex-direction: column; align-items: stretch; text-align: right;
+    border: 1px solid var(--panel-border);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+.ui-element.visible { opacity: 1; display: flex; }
+
+/* --- HEADINGS & TEXT (Using Variables) --- */
+h2 {
+    font-weight: 700; color: var(--text-heading); text-align: center;
+    margin-bottom: 20px; font-size: 1.6em; transition: color 0.5s ease;
+}
+label {
+    color: var(--text-secondary); font-size: 0.95em; margin-bottom: 5px;
+    transition: color 0.5s ease;
+}
+#question-text {
+    font-size: 1.4em; font-weight: normal; margin-bottom: 15px; line-height: 1.5;
+    color: var(--text-primary); /* Use primary text color here */
+    transition: color 0.5s ease;
+}
+#question-counter {
+    font-size: 0.9em; color: var(--text-secondary); margin-bottom: 15px; text-align: center;
+    transition: color 0.5s ease;
+}
+
+/* --- BUTTONS - General Styling (Using Variables) --- */
+button {
+    font-family: 'Noto Sans Arabic', Arial, sans-serif; padding: 10px 20px; border-radius: 6px;
+    border: none; cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+    font-size: 0.95em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); margin: 5px;
+}
+button:disabled {
+    opacity: 0.6; /* Keep opacity for universal disabled look */
+    cursor: not-allowed; box-shadow: none; transform: none;
+    background-color: var(--button-disabled-bg);
+    border-bottom: 1px solid var(--button-disabled-border); /* Use border instead of just color */
+    color: var(--button-disabled-text);
+}
+button:not(:disabled):hover { transform: translateY(-1px); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); }
+button:not(:disabled):active { transform: translateY(0px); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
+
+/* --- CHOICE BUTTONS (Using Variables) --- */
+#choices-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin: 20px 0; }
+.choice-button {
+    background-color: var(--button-choice-bg);
+    border-bottom: 3px solid var(--button-choice-border);
+    color: var(--text-button-secondary);
+}
+.choice-button:not(:disabled):hover { background-color: var(--button-choice-hover-bg); }
+.choice-button.correct {
+    background-color: var(--button-correct-bg);
+    border-bottom-color: var(--button-correct-border);
+    color: var(--text-button-secondary); /* Assuming light text usually */
+}
+.choice-button.incorrect {
+    background-color: var(--button-incorrect-bg);
+    border-bottom-color: var(--button-incorrect-border);
+    color: var(--text-button-secondary); /* Assuming light text usually */
+}
+.choice-button.disabled { /* General disabled button style applies */
+    opacity: 0.6; /* Override general disabled if needed */
+    /* Keep the background color to show correct/incorrect */
+}
+.choice-button.correct.disabled { background-color: var(--button-correct-bg); border-bottom-color: var(--button-correct-border);}
+.choice-button.incorrect.disabled { background-color: var(--button-incorrect-bg); border-bottom-color: var(--button-incorrect-border);}
+
+
+/* --- ACTION BUTTONS (Start, Next, Restart - Using Variables) --- */
+#start-button, #next-button, #start-button-restart {
+    background-color: var(--button-primary-bg);
+    color: var(--text-button-primary); /* Text color for primary buttons */
+    font-weight: bold;
+    border-bottom: 3px solid var(--button-primary-border);
+    align-self: center; min-width: 150px; margin-top: 20px;
+}
+#start-button:not(:disabled):hover,
+#next-button:not(:disabled):hover,
+#start-button-restart:not(:disabled):hover {
+    background-color: var(--button-primary-hover-bg);
+}
+#next-button.disabled { /* Style using disabled variables */
+    background-color: var(--button-disabled-bg);
+    border-bottom-color: var(--button-disabled-border);
+    color: var(--button-disabled-text);
+    opacity: 0.7;
+}
+
+
+/* --- AWARD BUTTONS (Using Variables) --- */
+#point-award-container { margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.award-button { /* Use correct button style */
+    background-color: var(--button-correct-bg);
+    border-bottom: 3px solid var(--button-correct-border);
+    color: var(--text-button-secondary);
+}
+.award-button:not(:disabled):hover { background-color: var(--button-correct-hover-bg); }
+.award-button.no-points { /* Use secondary button style */
+    background-color: var(--button-secondary-bg);
+    border-bottom-color: var(--button-secondary-border);
+    color: var(--text-button-secondary);
+}
+.award-button.no-points:not(:disabled):hover { background-color: var(--button-secondary-hover-bg); }
+
+/* --- INPUTS & FORMS (Using Variables) --- */
+#start-config input[type="number"],
+#start-config input[type="text"],
+#file-input {
+    padding: 8px 12px; border-radius: 4px;
+    border: 1px solid var(--input-border);
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    margin-bottom: 12px; width: calc(100% - 26px);
+    font-family: 'Noto Sans Arabic', Arial, sans-serif; font-size: 0.9em;
+    transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease;
+}
+#start-config input[type="number"] { max-width: 100px; }
+#team-names-container { margin-bottom: 15px; }
+#team-names-container input[type="text"] { max-width: 300px; display: inline-block; width: calc(100% - 130px); }
+#team-names-container label { display: inline-block; width: 110px; vertical-align: middle; margin-left: 10px;}
+#start-error { color: #ff8080; margin-top: 10px; text-align: center; font-size: 0.9em; min-height: 1.3em;}
+#available-questions-count { font-size: 0.9em; color: var(--text-secondary); display: block; margin-bottom: 15px; text-align: center; transition: color 0.5s ease;}
+
+/* Radio buttons styling */
+#question-type-selector, #file-importer {
+    margin-bottom: 20px; border: 1px solid var(--panel-border); border-radius: 5px; padding: 15px;
+    transition: border-color 0.5s ease;
+}
+#question-type-selector label, #file-importer label { display: inline-block; margin-left: 15px; margin-right: 5px; font-size: 0.95em; cursor: pointer; color: var(--text-primary); transition: color 0.5s ease;}
+#question-type-selector input[type="radio"], #file-importer input[type="checkbox"] { margin-left: 5px; cursor: pointer; vertical-align: middle;
+    accent-color: var(--accent-color); /* Style the check/radio color */
+    transition: accent-color 0.5s ease;
+}
+
+/* File importer specific */
+#import-button { /* Use secondary button style */
+    background-color: var(--button-secondary-bg);
+    border-bottom: 3px solid var(--button-secondary-border);
+    color: var(--text-button-secondary);
+    font-size: 0.9em; padding: 8px 15px;
+}
+#import-button:not(:disabled):hover { background-color: var(--button-secondary-hover-bg); }
+#import-status { display: block; margin-top: 10px; font-size: 0.85em; color: var(--text-secondary); min-height: 1.2em; transition: color 0.5s ease;}
+
+
+/* --- RESULT AREA & VERSE (Using Variables) --- */
+#result-container {
+    margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--panel-border);
+    transition: border-color 0.5s ease;
+}
+#result-text { font-size: 1.15em; font-style: italic; text-align: center; color: var(--text-primary); transition: color 0.5s ease; }
+#verse-display { margin: 15px 0; }
+#verse-toggle { color: var(--accent-color); cursor: pointer; text-decoration: underline; font-size: 1em; transition: color 0.5s ease;}
+#verse-content { display: none; font-size: 1em; margin-top: 8px; color: var(--accent-color); background-color: rgba(0,0,0,0.2); padding: 8px; border-radius: 4px; transition: color 0.5s ease;}
+#discussion-prompt { color: var(--text-secondary); font-style: italic; margin-bottom: 15px; font-size: 0.85em; text-align: center; transition: color 0.5s ease;}
+
+/* --- SCORE DISPLAY (Using Variables) --- */
+#score-display {
+    position: fixed; bottom: 15px; right: 15px; left: auto;
+    background-color: var(--score-panel-bg);
+    padding: 10px 15px; border-radius: 8px; z-index: 10; color: var(--text-primary);
+    font-size: 0.9em; max-height: 180px; overflow-y: auto;
+    border: 1px solid var(--score-panel-border);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+    transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease;
+}
+#score-display h4 {
+    margin: 0 0 8px 0; color: var(--score-heading-color);
+    font-size: 1.1em; border-bottom: 1px solid var(--panel-border); padding-bottom: 4px;
+    transition: color 0.5s ease, border-color 0.5s ease;
+}
+#score-display div { margin-bottom: 4px; }
+
+/* --- END GAME SCREEN (Using Variables) --- */
+ #end-game h2 { font-size: 1.8em; margin-bottom: 25px;}
+ #end-game-scores { margin: 20px 0; font-size: 1.1em; line-height: 1.6; }
+ #end-game-scores h4 { font-size: 1.2em; color: var(--score-heading-color); margin-bottom: 10px; transition: color 0.5s ease; }
+ #end-game-winner {
+     margin-top: 15px; font-size: 1.4em; color: var(--winner-color);
+     font-weight: bold; text-align: center;
+     text-shadow: var(--winner-shadow);
+     transition: color 0.5s ease, text-shadow 0.5s ease;
+ }
+ 
+ #question-editor-ui {
+    /* Inherits .ui-element styles like background, padding, border-radius */
+    /* Override size constraints */
+    width: 90%;
+    max-width: 900px; /* Wider than normal panels */
+    min-width: 500px;
+    max-height: 90vh; /* Limit height */
+    height: 85vh; /* Default height */
+    overflow-y: hidden; /* Prevent main panel scroll, inner container scrolls */
+    flex-direction: column; /* Ensure vertical layout */
+}
+
+#editor-status-message {
+    text-align: center;
+    margin-bottom: 10px;
+    min-height: 1.2em;
+    padding: 5px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+.status-success { background-color: rgba(111, 154, 111, 0.3); color: var(--button-correct-bg); }
+.status-error   { background-color: rgba(160, 106, 106, 0.3); color: var(--button-incorrect-bg); }
+.status-info    { /* Default text color */ }
+
+
+#editor-view-container {
+    height: calc(100% - 120px); /* Adjust based on header/footer height */
+    overflow-y: auto; /* Allow scrolling for list/form */
+    padding: 10px;
+    border: 1px solid var(--input-border);
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 5px;
+}
+
+/* Question List Styles */
+#question-list-view h3 {
+    color: var(--text-heading);
+    margin: 0 0 15px 0;
+}
+
+#question-list-container {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.question-list-item {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--panel-border);
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s ease;
+}
+.question-list-item:hover {
+     background-color: rgba(255, 255, 255, 0.08);
+}
+
+
+.question-item-text {
+    flex-grow: 1;
+    margin-right: 15px; /* Use margin-right in RTL */
+    font-size: 0.95em;
+    color: var(--text-primary);
+}
+
+.question-item-actions button {
+    margin-left: 8px; /* Spacing between buttons */
+    padding: 5px 10px;
+    font-size: 0.85em;
+}
+.warning-action { /* Style for delete button */
+    background-color: var(--button-incorrect-bg);
+    border-bottom-color: var(--button-incorrect-border);
+    color: var(--text-button-secondary);
+}
+.warning-action:hover { background-color: var(--button-incorrect-hover-bg); }
+
+.editor-list-empty {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 20px;
+    font-style: italic;
+}
+
+
+/* Edit Form Styles */
+#question-edit-form-view h3 {
+     color: var(--text-heading);
+     margin-bottom: 15px;
+     text-align: center;
+}
+
+#question-edit-form label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: var(--text-secondary);
+    font-weight: bold;
+}
+
+#question-edit-form input[type="text"],
+#question-edit-form textarea,
+#question-edit-form select {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid var(--input-border);
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    margin-bottom: 5px; /* Smaller margin within form */
+    font-family: 'Noto Sans Arabic', Arial, sans-serif;
+    box-sizing: border-box; /* Include padding/border in width */
+}
+#question-edit-form textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+.choice-edit-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    background-color: rgba(0,0,0,0.1);
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.choice-edit-item input[type="radio"] {
+    margin-left: 10px; /* RTL */
+    margin-right: 5px; /* RTL */
+    flex-shrink: 0;
+     accent-color: var(--accent-color);
+     cursor: pointer;
+}
+
+.choice-edit-item input[type="text"] {
+    flex-grow: 1;
+    margin-bottom: 0; /* Override default */
+}
+
+.choice-edit-item .remove-choice-btn {
+    background: var(--button-incorrect-bg);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    line-height: 20px;
+    text-align: center;
+    cursor: pointer;
+    margin-right: 10px; /* RTL */
+    flex-shrink: 0;
+    padding: 0;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+.choice-edit-item .remove-choice-btn:hover {
+    background: var(--button-incorrect-hover-bg);
+}
+
+#add-choice-button { /* Style like secondary */
+    background-color: var(--button-secondary-bg);
+    border-bottom: 2px solid var(--button-secondary-border);
+    color: var(--text-button-secondary);
+    padding: 6px 12px;
+    font-size: 0.9em;
+}
+#add-choice-button:hover { background-color: var(--button-secondary-hover-bg); }
+
+/* Action Buttons in Editor */
+.form-actions, .editor-global-actions {
+     display: flex;
+     justify-content: space-around; /* Or space-between */
+     padding-top: 15px;
+     margin-top: 15px;
+     border-top: 1px solid var(--panel-border);
+}
+
+#save-edited-question-button { /* Style like primary */
+    background-color: var(--button-primary-bg);
+    border-bottom: 3px solid var(--button-primary-border);
+    color: var(--text-button-primary);
+    font-weight: bold;
+}
+#save-edited-question-button:hover { background-color: var(--button-primary-hover-bg); }
+
+.cancel-action { /* Style for cancel/close buttons */
+    background-color: var(--button-secondary-bg);
+    border-bottom-color: var(--button-secondary-border);
+    color: var(--text-button-secondary);
+}
+.cancel-action:hover { background-color: var(--button-secondary-hover-bg); }
+
+.secondary-action { /* Style for export etc. */
+    background-color: var(--button-secondary-bg);
+    border-bottom-color: var(--button-secondary-border);
+    color: var(--text-button-secondary);
+     opacity: 0.8;
+}
+.secondary-action:hover { background-color: var(--button-secondary-hover-bg); opacity: 1; }
+ 
