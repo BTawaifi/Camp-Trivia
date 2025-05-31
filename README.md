@@ -7,6 +7,7 @@ A trivia game application built with Electron and Three.js.
 - Displays trivia questions.
 - Supports different trivia categories (e.g., normal, biblical).
 - Simple and intuitive user interface.
+- Easily customize questions by directly editing `trivia-biblical.json` and `trivia-normal.json`.
 
 ## Project Structure
 
@@ -79,6 +80,10 @@ This will create a production build of the renderer process and package the appl
 - `electron-builder`: A complete solution to package and build a ready for distribution Electron app.
 - `html-webpack-plugin`: Simplifies creation of HTML files to serve your webpack bundles.
 - `webpack-cli`: Command line interface for webpack.
+
+## Customizing Questions
+
+You can add, remove, or modify trivia questions by directly editing the `trivia-biblical.json` and `trivia-normal.json` files in the project root. These files are in JSON format and can be opened with any text editor.
 
 ## License
 
